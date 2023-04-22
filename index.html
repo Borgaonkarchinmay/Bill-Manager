@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>Student Information</title>
+  </head>
+  <body>
+    
+    <!-- Core UI stuff -->
+    <label for="name">Name</label>
+    <input type="text" id="stu-name" name="name" value="e.g. John Parker"> <br>
+    <label for="age">Age</label>
+    <input type="text" id="stu-age" name="age" value="e.g. John Parker"> <br>
+    <label for="rollno">RollNo</label>
+    <input type="text" id="stu-rollno" name="rollno" value="e.g. John Parker"> <br>
+    <label for="branch">Branch</label>
+    <input type="text" id="stu-branch" name="branch" value="e.g. John Parker"> <br>
+
+
+
+    <!-- Script -->
+    <script src="./renderer.js"></script>
+  
+  </body>
+</html>
