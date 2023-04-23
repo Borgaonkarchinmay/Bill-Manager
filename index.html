@@ -12,15 +12,40 @@
       content="default-src 'self'; script-src 'self'"
     />
     <title>Student Information</title>
+    <link rel="stylesheet" href="./index.css">
   </head>
+
   <body>
-    <h1>Warm Welcome to Chinmay Borgaonkar from electron's renderer process!</h1>
-    <p>👋</p>
-    <p id="info"></p>
+    
+    <!-- Core UI stuff -->
+    <label for="name">Name</label>
+    <input type="text" id="stu-name" name="name" placeholder="e.g. John Parker" value=""> <br>
+    <label for="age">Age</label>
+    <input type="text" id="stu-age" name="age" placeholder="e.g. John 18" value=""> <br>
+    <label for="rollno">RollNo</label>
+    <input type="text" id="stu-rollno" name="rollno" placeholder="e.g. 31114" value=""> <br>
+    <label for="branch">Branch</label>
+    <input type="text" id="stu-branch" name="branch" placeholder="e.g. CE" value=""> <br>
+    <button id="btn-save" type="button">Save</button>
+    <button id="btn-fetch" type="button">Show</button>
+
+    <br><br>
+
+    <!-- Show fetched students records -->
+    <table id="stu-records-tab-content">
+      <!-- Content updated by renderer on fecth event -->
+      <th>
+        <td>Name</td>
+        <td>Age</td>
+        <td>Rollno</td>
+        <td>Branch</td>
+      </th>
+    </table>
 
 
     <!-- Script -->
     <script src="./renderer.js"></script>
   
   </body>
+
 </html>
