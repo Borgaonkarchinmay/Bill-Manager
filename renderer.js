@@ -1,5 +1,6 @@
 const btnSave = document.getElementById('btn-save')
 const btnFetch = document.getElementById('btn-fetch')
+const btnScan = document.getElementById('btn-scan')
 
 // Asynchronous event listeners 
 // So that user can seemlesly interact with the UI
@@ -17,7 +18,7 @@ btnSave.addEventListener('click', async () =>{
     document.getElementById('stu-rollno').value = ''
     document.getElementById('stu-branch').value = ''
 
-    console.log(result)
+    console.log(result) 
 })
 
 
@@ -42,4 +43,11 @@ btnFetch.addEventListener('click', async () =>{
         stuTableBody.appendChild(row)
     })
 
+})
+
+btnScan.addEventListener('click', async () =>{
+    const filePath = await stuFormData.selectBill()
+    const billContainer = document.getElementById('scanned-billed')
+    billContainer.src = filePath
+    console.log(`Selected filepath is: ${filePath}`)
 })

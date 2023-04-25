@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 const path = require('path')
 const mysql = require('mysql');
 
@@ -40,7 +40,7 @@ app.whenReady().then( () =>{
         const age = student.age
         const rollno = student.rollno
         const branch = student.branch
-
+        
         const querry = 'INSERT INTO STUDENT VALUES(?, ?, ?, ?)'
 
         db.query(querry, [name, age, rollno, branch], (err, result) =>{
@@ -52,6 +52,7 @@ app.whenReady().then( () =>{
         })
     })
 
+    
     ipcMain.handle('stuFormData:fetch', (event) =>{
         
         return new Promise((resolve, reject) =>{
@@ -70,7 +71,42 @@ app.whenReady().then( () =>{
         })
         
     })
-    
+
+    ipcMain.handle('fill-bill:select', (event) =>{
+
+        return new Promise( (resolve, reject) =>{
+
+            const webContents = event.sender
+            const win = BrowserWindow.fromWebContents(webContents)
+
+            // Open file selection dialog box
+            dialog.showOpenDialog({
+                win, // Attach the OS dialog the concerned window
+                properties: ['openFile'], // Restrict only to file selection
+                filters: [
+                    { name: 'Images', extensions: ['jpg', 'png', 'gif'] }, // Allow view and selection of these image formated only
+                ]
+            }).then( (result) =>{
+                
+                // Something selected
+                if(!result.canceled){
+                    console.log(`Selected file path is :${result.filePaths[0]}`)
+                    resolve(result.filePaths[0])
+                }else{
+                    // Return empty file path
+                    resolve("")
+                }
+                
+            }).catch( (error) =>{
+
+                console.log(`Error is :${error}`)
+                reject(error)
+            })
+            
+        })
+
+    })
+
     createWindow()    
 })
 

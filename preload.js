@@ -24,9 +24,16 @@ const showStuData = async() =>{
     return studentRecords
 }
 
+const selectBill = async () =>{
+    
+    const filePath = await ipcRenderer.invoke('fill-bill:select')
+    return filePath
+}
+
 // Expose the relevant functions and variables to renderer process  
 
 contextBridge.exposeInMainWorld('stuFormData', {
     saveStudentData : saveStudentData,
     showStuData : showStuData,
+    selectBill : selectBill,
 })
