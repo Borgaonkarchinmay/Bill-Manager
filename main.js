@@ -1,12 +1,10 @@
-const {app, BrowserWindow, ipcMain, dialog} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog, Notification} = require('electron')
 const path = require('path')
 const mysql = require('mysql')
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args))
 const request = require('request');
 const fs = require('fs');
 const checkInternetConnected = require('check-internet-connected');
-
-
 
 const db = mysql.createConnection({
     user : "root",
@@ -165,47 +163,73 @@ app.whenReady().then( () =>{
 
     })
 
-    ipcMain.handle('fill-bill:executeOCR', (event, imageFilePath) =>{
+    ipcMain.handle('fill-bill:executeOCR', async (event, imageFilePath) =>{
         const receiptOcrEndpoint = 'https://ocr.asprise.com/api/v1/receipt'; 
         
-        return new Promise( (resolve, reject) =>{
+        const connectionCheckConfig = {
+            timeout: 5000,
+            retries: 3,
+            domain: 'https://ocr.asprise.com/api'
+        }
 
-            request.post({
-                url: receiptOcrEndpoint,
-                formData: {
-                  api_key: 'TEST',        // Use 'TEST' for testing purpose
-                  recognizer: 'auto',        // can be 'US', 'CA', 'JP', 'SG' or 'auto'
-                  ref_no: 'ocr_nodejs_123', // optional caller provided ref code
-                  file: fs.createReadStream(imageFilePath) // the image file
-                },
-              }, function(error, response, body) {
-                if(error) {
-                  console.error(error);
-                  reject(error);
-                }
-                var data = JSON.parse(body);
-                console.log(data) // Receipt OCR result in JSON
-                
-                if(data.success === 'true'){ 
-                    console.log(data.receipts[0]) // Receipt OCR result in JSON
-                    data = {
-                        GST : data.receipts[0].merchant_tax_reg_no,
-                        MobNo : data.receipts[0].merchant_phone,
-                        MerchantName : data.receipts[0].merchant_name,
-                        TotalBillAmount : data.receipts[0].total,
-                        Website : data.receipts[0].merchant_website,
-                        Country : data.receipts[0].country,
-                        Date : data.receipts[0].date,
-                        Time : data.receipts[0].time
+        try{
+            await checkInternetConnected(connectionCheckConfig)
+
+            return new Promise( (resolve, reject) =>{
+
+                request.post({
+                    url: receiptOcrEndpoint,
+                    formData: {
+                    api_key: 'TEST',        // Use 'TEST' for testing purpose
+                    recognizer: 'auto',        // can be 'US', 'CA', 'JP', 'SG' or 'auto'
+                    ref_no: 'ocr_nodejs_123', // optional caller provided ref code
+                    file: fs.createReadStream(imageFilePath) // the image file
+                    },
+                }, function(error, response, body) {
+                    if(error) {
+                    console.error(error);
+                    reject(error);
                     }
-                    data = JSON.stringify(data)
-                    resolve(data)
-                }else{ // OCR process API call limit for a hour is exceeded 
-                    reject(new Error('There was error in processing the invoice! Retry after some time.'))
-                }
-            });
-            
-        })
+                    var data = JSON.parse(body);
+                    console.log(data) // Receipt OCR result in JSON
+                    
+                    if(data.success === 'true'){ 
+                        console.log(data.receipts[0]) // Receipt OCR result in JSON
+                        data = {
+                            GST : data.receipts[0].merchant_tax_reg_no,
+                            MobNo : data.receipts[0].merchant_phone,
+                            MerchantName : data.receipts[0].merchant_name,
+                            TotalBillAmount : data.receipts[0].total,
+                            Website : data.receipts[0].merchant_website,
+                            Country : data.receipts[0].country,
+                            Date : data.receipts[0].date,
+                            Time : data.receipts[0].time
+                        }
+                        data = JSON.stringify(data)
+                        resolve(data)
+                    }else{ // OCR process API call limit for a hour is exceeded 
+                    
+                        dialog.showMessageBox({
+                            title: 'Bill Processing error',
+                            message: 'Currently bills cannot be proccesed due to load. Please try again later or try entering the bills manually.',
+                            type: 'warning',
+                            buttons: ['OK']
+                        })
+                        reject(new Error('There was error in processing the invoice! Retry after some time.'))
+                    }
+                });
+                
+            })
+        }catch(err){
+            console.log('Connection error: ' + err)
+            dialog.showMessageBox({
+                title: 'Network Connection Error',
+                message: 'There is no internet connection. This feature requires an active internet connection.',
+                type: 'warning',
+                buttons: ['OK']
+            })
+            reject(err)
+        }
     })
 
     ipcMain.handle('bill-gst:verify', async (event, gstNo) =>{
@@ -219,7 +243,7 @@ app.whenReady().then( () =>{
         }
         
         try{
-            await checkInternetConnected(connectionCheckConfig);
+            await checkInternetConnected(connectionCheckConfig)
             
             const options = {
                 method : 'GET',
@@ -241,6 +265,12 @@ app.whenReady().then( () =>{
 
         }catch(err){
             console.log("No connection", err)
+            dialog.showMessageBox({
+                title: 'Network Connection Error',
+                message: 'There is no internet connection. This feature requires an active internet connection.',
+                type: 'warning',
+                buttons: ['OK']
+            })
             return err
         }    
     })
