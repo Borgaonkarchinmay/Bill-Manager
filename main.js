@@ -9,7 +9,7 @@ const checkInternetConnected = require('check-internet-connected');
 const db = mysql.createConnection({
     user : "root",
     host : "localhost",
-    password : "Chinmaypb@1032",
+    password : "****",
     database : "invoicedb",
     multipleStatements: true,
 });
@@ -248,8 +248,8 @@ app.whenReady().then( () =>{
             const options = {
                 method : 'GET',
                 headers: {
-                    'Authorization': 'Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9',
-                    'client_id': 'JarZChUcsytSBbnkpt'  
+                    'Authorization': '***********',
+                    'client_id': '**************'  
                 }
             }
             const response = await fetch(`https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstNo}`, options)
