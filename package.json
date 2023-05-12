@@ -14,7 +14,10 @@
     "electron": "^24.1.2"
   },
   "dependencies": {
+    "check-internet-connected": "^2.0.6",
     "mysql": "^2.18.1",
+    "node-fetch": "^2.6.9",
+    "request": "^2.88.2",
     "tesseract.js": "^4.0.3"
   }
 }
