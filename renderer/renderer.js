@@ -51,6 +51,13 @@ btnSave.addEventListener('click', async () =>{
     //const result = await invoiceManager.saveAllInvoiceDataFields(merchant_name, invoice_date_time, merchant_pan, merchant_gst, merchant_mob_no, total_amount, website, country, payment_method, payment_status) // Pass data to mediator (preload)
     //const result = await invoiceManager.saveEssentialInvoiceData(merchant_name, merchant_pan, merchant_gst, merchant_mob_no, total_amount) // Pass data to mediator (preload)
     console.log('renderer result data: ')
+    
+    /*
+    Note 
+    invoice_date_time parameter compulsory format : data type = string
+    format => yyyy-mm-dd hh:mm:ss
+    */
+    
     console.log(result) 
 })
 
