@@ -7,3 +7,4 @@ distributed database structure
 
 
 check classes of fav icons
+GST verification backend bugs fix

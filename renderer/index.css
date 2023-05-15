@@ -19,6 +19,8 @@ body {
     background-color: white;
     margin: 0;
     padding: 0;
+    height: 100vh;
+    overflow: hidden;
 }
 
 body::-webkit-scrollbar {
@@ -59,6 +61,9 @@ main {
 
 }
 
+.section{
+    height: 100vh;
+}
 .nav-item {
     width: 100%;
     margin: 1rem 0;
@@ -67,6 +72,7 @@ main {
 #current{
     
     background-color: #8d8de6;
+    color: white;
     /* filter: drop-shadow(0.5rem 0.5rem 1px black); */
 
 }

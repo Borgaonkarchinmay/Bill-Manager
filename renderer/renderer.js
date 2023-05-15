@@ -1,6 +1,7 @@
+
 const btnSave = document.getElementById('btn-save')
 const btnFetch = document.getElementById('btn-fetch')
-const btnScan = document.getElementById('btn-scan')
+const btnScan = document.getElementById('btn-scan').getElementsByClassName('section')
 const btnDelete = document.getElementById('btn-delete')
 const gstNo = document.getElementById('gst-no')
 const btnVerifyGST = document.getElementById('btn-verify-gstno')
@@ -105,7 +106,6 @@ btnDelete.addEventListener('click', async () =>{
 
 btnScan.addEventListener('click', async () =>{
     // Only response structure of concern here is => console.log(`Bill content: ${billData}`) 
-
 
     const filePath = await invoiceManager.selectBill()
     const billContainer = document.getElementById('scanned-billed')
