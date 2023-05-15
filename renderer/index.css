@@ -1,3 +1,5 @@
+/* Theme Template */
+
 :root {
     font-size: 24px;
     font-family: sans-serif;
@@ -7,6 +9,10 @@
     --bg-secondary: #95959d;
     --transition-speed: 600ms;
 }
+
+
+/* CSS for All Pages */
+
 
 body {
     color: black;
@@ -27,11 +33,12 @@ body::-webkit-scrollbar-thumb {
     background: #6649b8;
 }
 
-
 main {
     margin-left: 6rem;
     padding: 1rem;
 }
+
+/* CSS for NavBar */
 
 .navbar {
     width: 5rem;
@@ -54,7 +61,14 @@ main {
 
 .nav-item {
     width: 100%;
-    /* margin: 1rem 0; */
+    margin: 1rem 0;
+}
+
+#current{
+    
+    background-color: #8d8de6;
+    /* filter: drop-shadow(0.5rem 0.5rem 1px black); */
+
 }
 
 .nav-item:last-child {
@@ -68,7 +82,7 @@ main {
     color: var(--text-primary);
     text-decoration: none;
     filter: grayscale(100%) opacity(0.7);
-    transition: var(--transition-speed);
+    /* transition: var(--transition-speed); */
 
 }
 
@@ -76,6 +90,7 @@ main {
     filter: grayscale(0%) opacity(1);
     background: var(--bg-secondary);
     color: white;
+    filter: drop-shadow(0.5rem 0.5rem 1px black);
 }
 
 .fa-primary {
@@ -112,6 +127,13 @@ main {
 }
 
 
+/* CSS for Upload Bills page */
+.required:after{
+    content:" *";
+    color:red;
+}
+
+/* CSS for the View Bills Page */
 table,
 tr {
     border-style: solid;

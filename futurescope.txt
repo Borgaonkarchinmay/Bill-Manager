@@ -1,0 +1,9 @@
+help page
+settings page
+dark mode
+feature rich dashboard with inbuilt analytics
+distributed database structure
+
+
+
+check classes of fav icons
