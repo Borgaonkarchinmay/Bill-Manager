@@ -13,7 +13,7 @@ const createWindow = () =>{
             worldSafeExecuteJavaScript: true,
         },
     })
-    win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 
     win.loadFile(path.join(__dirname, '../renderer/index.html'))
 }
