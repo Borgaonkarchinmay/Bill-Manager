@@ -83,22 +83,26 @@ btnUpload.addEventListener('click', async () =>{
         //billContainer.src = filePath
         //console.log(`Selected filepath is: ${filePath}`)
         console.log()
+        
+        if(filePath.length){
+            var billData = await invoiceManager.executeOCR(filePath)
+            console.log(`Bill content: ${billData}`)
+            billData = JSON.parse(billData)
+            console.log(billData.GST)
+            console.log(typeof(billData.GST))
 
-        var billData = await invoiceManager.executeOCR(filePath)
-        console.log(`Bill content: ${billData}`)
-        billData = JSON.parse(billData)
-        console.log(billData.GST)
-        console.log(typeof(billData.GST))
-
-        // auto fill
-        merchant_country.value = billData.Country
-        merchant_pan.value = billData.GST.substring(2, 12)
-        merchant_website.value = billData.Website
-        merchant_amount.value = billData.TotalBillAmount
-        merchant_gst_no.value = billData.GST
-        merchant_name.value = billData.MerchantName
-        merchant_date.value = billData.merchant_date
-        merchant_MobNo.value = billData.MobNo
+            // auto fill
+            merchant_country.value = billData.Country
+            merchant_pan.value = billData.GST.substring(2, 12)
+            merchant_website.value = billData.Website
+            merchant_amount.value = billData.TotalBillAmount
+            merchant_gst_no.value = billData.GST
+            merchant_name.value = billData.MerchantName
+            merchant_date.value = billData.merchant_date
+            merchant_MobNo.value = billData.MobNo
+        }else{
+            console.log('File not selected')
+        }
     
     }catch(err){
         console.log('User did\'t selected the file')
