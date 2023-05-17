@@ -1,131 +1,121 @@
 
 const btnSave = document.getElementById('btn-save')
 const btnFetch = document.getElementById('btn-fetch')
-const btnScan = document.getElementById('btn-scan').getElementsByClassName('section')
-const btnDelete = document.getElementById('btn-delete')
-const gstNo = document.getElementById('gst-no')
+const btnUpload = document.getElementById('btn-upload')
+const invoiceRecordsTableBody = document.getElementById('invoice-records-table-body')
+
+//const gstNo = document.getElementById('gst-no')
 const btnVerifyGST = document.getElementById('btn-verify-gstno')
 const gstStatus = document.getElementById('gst-status')
+const merchant_country = document.getElementById('merchant_country')
+const merchant_website = document.getElementById('merchant_website')
+const merchant_amount = document.getElementById('merchant_amount')
+const merchant_gst_no = document.getElementById('merchant_gst_no')
+const merchant_name = document.getElementById('merchant_name')
+const merchant_date = document.getElementById('merchant_date')
+const merchant_MobNo = document.getElementById('merchant_MobNo')
+const payment_method = document.getElementById('payment_method')
+const payment_status = document.getElementById('payment_status')
+const merchant_pan = document.getElementById('merchant_pan')
 
 // Asynchronous event listeners 
 // So that user can seemlesly interact with the UI
 // awaiting for the application t complete with previous requests
 
-/*
+
 btnSave.addEventListener('click', async () =>{
-    const name = document.getElementById('stu-name').value
-    const age = document.getElementById('stu-age').value
-    const rollno = document.getElementById('stu-rollno').value
-    const branch = document.getElementById('stu-branch').value
-    
-    const result = await stuFormData.saveStudentData(name, age, rollno, branch) // Pass data to mediator (preload)
-    document.getElementById('stu-name').value = ''
-    document.getElementById('stu-age').value = ''
-    document.getElementById('stu-rollno').value = ''
-    document.getElementById('stu-branch').value = ''
 
-    console.log(result) 
-})*/
+//  Expected arguments mentioned as strings
+    const result = await invoiceManager.saveAllInvoiceDataFields(merchant_name.value, merchant_date.value, merchant_pan.value, merchant_gst_no.value, merchant_MobNo.value, merchant_amount.value, merchant_website.value, merchant_country.value, payment_method.value, payment_status.value) // Pass data to mediator (preload)
 
-/*
-btnSave.addEventListener('click', async () =>{
-    /*const name = document.getElementById('stu-name').value
-    const age = document.getElementById('stu-age').value
-    const rollno = document.getElementById('stu-rollno').value
-    const branch = document.getElementById('stu-branch').value
-    
-    const result = await stuFormData.saveStudentData(name, age, rollno, branch) // Pass data to mediator (preload)
-    document.getElementById('stu-name').value = ''
-    document.getElementById('stu-age').value = ''
-    document.getElementById('stu-rollno').value = ''
-    document.getElementById('stu-branch').value = ''
-
-    const result = await stuFormData.saveEssentialInvoiceData('merchant_name', 'merchant_pan', 'merchant_gst', 'merchant_mob_no', 'total_amount') // Pass data to mediator (preload)
     console.log('renderer result data: ')
-    console.log(result) 
-})*/
+    console.log(result)
 
-btnSave.addEventListener('click', async () =>{
-
-
-    //Expected arguments mentioned as strings
-    //const result = await invoiceManager.saveAllInvoiceDataFields(merchant_name, invoice_date_time, merchant_pan, merchant_gst, merchant_mob_no, total_amount, website, country, payment_method, payment_status) // Pass data to mediator (preload)
-    //const result = await invoiceManager.saveEssentialInvoiceData(merchant_name, merchant_pan, merchant_gst, merchant_mob_no, total_amount) // Pass data to mediator (preload)
-    console.log('renderer result data: ')
-    
-    /*
-    Note 
-    invoice_date_time parameter compulsory format : data type = string
-    format => yyyy-mm-dd hh:mm:ss
-    */
-    
-    console.log(result) 
+//     Note 
+//     invoice_date_time parameter compulsory format : data type = string
+//     format => yyyy-mm-dd hh:mm:ss
+//     
 })
 
-/*
 btnFetch.addEventListener('click', async () =>{
-
-    var result = await stuFormData.showStuData()
-    console.log(result)
-    
-
-    const stuTableBody = document.getElementById('stu-records-tab-content')
-    const keySet = Object.keys(result[0])
-
-    result.forEach(student => {
-        const row = document.createElement('tr')
-
-        keySet.forEach(key => {
-            const cell = document.createElement('td')
-            cell.innerText = student[key]
-            row.appendChild(cell)
-        })
-
-        stuTableBody.appendChild(row)
-    })
-
-})*/
-
-btnFetch.addEventListener('click', async () =>{
-    // Respone : All invoices in the db are fetched
-    // Response Structure : [{}, ...]
 
     console.log('renderer btn fetch')
     var result = await invoiceManager.showInvoiceData()
-    console.log(result)
-    
+    if(result.length){
+
+        const keySet = Object.keys(result[0])
+
+        // Clear the table content
+        invoiceRecordsTableBody.innerHTML = ''
+
+        // Populate table
+        result.forEach(invoice => {
+            const row = document.createElement('tr')
+
+            keySet.forEach(key => {
+                const cell = document.createElement('td')
+                cell.innerText = invoice[key]
+                row.appendChild(cell)
+            })
+
+            invoiceRecordsTableBody.appendChild(row)
+        })
+    }else{
+        // Clear the table content
+        invoiceRecordsTableBody.innerHTML = ''
+    }
 })
 
-btnDelete.addEventListener('click', async () =>{
+// btnDelete.addEventListener('click', async () =>{
     
-    console.log('renderer btn delete')
-    var result = await invoiceManager.deleteInvoiceRecord(2)
-    console.log(result)
+//     console.log('renderer btn delete')
+//     var result = await invoiceManager.deleteInvoiceRecord(2)
+//     console.log(result)
     
-})
+// })
 
-btnScan.addEventListener('click', async () =>{
+btnUpload.addEventListener('click', async () =>{
     // Only response structure of concern here is => console.log(`Bill content: ${billData}`) 
+    try{
 
-    const filePath = await invoiceManager.selectBill()
-    const billContainer = document.getElementById('scanned-billed')
-    billContainer.src = filePath
-    console.log(`Selected filepath is: ${filePath}`)
-    console.log()
+        const filePath = await invoiceManager.selectBill()
+        const billContainer = document.getElementById('scanned-billed')
+        //billContainer.src = filePath
+        //console.log(`Selected filepath is: ${filePath}`)
+        console.log()
 
-    const billData = await invoiceManager.executeOCR(filePath)
-    console.log(`Bill content: ${billData}`)
+        var billData = await invoiceManager.executeOCR(filePath)
+        console.log(`Bill content: ${billData}`)
+        billData = JSON.parse(billData)
+        console.log(billData.GST)
+        console.log(typeof(billData.GST))
 
+        // auto fill
+        merchant_country.value = billData.Country
+        merchant_pan.value = billData.GST.substring(2, 12)
+        merchant_website.value = billData.Website
+        merchant_amount.value = billData.TotalBillAmount
+        merchant_gst_no.value = billData.GST
+        merchant_name.value = billData.MerchantName
+        merchant_date.value = billData.merchant_date
+        merchant_MobNo.value = billData.MobNo
+    
+    }catch(err){
+        console.log('User did\'t selected the file')
+    }    
 })
 
 
 btnVerifyGST.addEventListener('click', async () =>{
     // Response structure : { status : 'active'/'deactive'}
-
-    console.log(`In renderer gstNo: ${gstNo.value}`)
-    const result = await invoiceManager.verifyGST(gstNo.value)
-    console.log(`Result : ${result}`)
-    gstStatus.innerText = result.status;
+    try{
+        console.log(`In renderer gstNo: ${merchant_gst_no.value}`)
+        const result = await invoiceManager.verifyGST(merchant_gst_no.value)
+        console.log(`Result : ${result}`)
+        gstStatus.innerText = result.status;
+    }catch(err){
+        console.log(err)
+    }
 })
 
 /*

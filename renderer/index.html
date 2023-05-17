@@ -70,8 +70,8 @@
       <h1>Welcome to BillManager DashBoard</h1>
       <h3>Analytics feature upcoming</h3>
     </div>
-    
-   <!-- Core UI stuff -->
+
+    <!-- Core UI stuff -->
     <!-- <label for="name">Name</label>
     <input type="text" id="stu-name" name="name" placeholder="e.g. John Parker" value=""> <br>
     <label for="age">Age</label>
@@ -92,51 +92,90 @@
     <h3 id="gst-status"></h3>
     <br><br> -->
 
+
+
     <div class="section" id="upload">
 
       <h1>Upload new invoice</h1>
 
-      <label for="" class="required">Upload Image:</label>
-      <button id="btn-scan" type="button">Browse</button>
-      <img id="scanned-billed" src=""> <br>
+      <label for="">Upload Image:</label>
+      <button id="btn-upload" type="button">Browse</button>
+      <!-- <img id="scanned-billed" src=""> <br> -->
 
 
-      <form action="">
+      <form id="instance" action="">
 
         <!-- Invoice upload -->
-        
+
         <label for="" class="required">Merchant Name:</label>
-        <input type="text" id="" name="" placeholder="" value="" required> <br>
+        <input type="text" id="merchant_name" name="" placeholder="" value="" required> <br>
+
         <label for="" class="required">Invoice Date:</label>
-        <input type="text" id="" name="" placeholder="" value="" required> <br>
+        <input type="text" id="merchant_date" name="" placeholder="" value="" required> <br>
+
         <label for="" class="required">Merchant PAN:</label>
-        <input type="text" id="" name="" placeholder="" value="" required> <br>
+        <input type="text" id="merchant_pan" name="" placeholder="" value="" required> <br>
+
+        <label for="" class="required">Registered Mobile Number:</label>
+        <input type="text" id="merchant_MobNo" name="" placeholder="" value="" required> <br>
+
+        <label for="" class="required">Total Amount on Invoice:</label>
+        <input type="text" id="merchant_amount" name="" placeholder="" value="" required> <br>
+
+        <label for="">Website:</label>
+        <input type="text" id="merchant_website" name="" placeholder="" value=""> <br>
+
+        <label for="">Country:</label>
+        <input type="text" id="merchant_country" name="" placeholder="" value=""> <br>
+
+        <label for="" class="required">Payment Method:</label>
+        <input type="text" id="payment_method" name="" placeholder="" value="" required>
+
+        <label for="" class="required">Payment Status:</label>
+        <input type="text" id="payment_status" name="" placeholder="" value="" required> <br>
+
         <label for="" class="required">Merchant GST No:</label>
-        <input id="gst-no" type="text" name="" placeholder="" value="" required>
-        <button id="btn-verify-gstno" type="button">Verify GST</button>
-        <br>
+        <input id="merchant_gst_no" type="text" name="" placeholder="" value="" required>
+        <button id="btn-verify-gstno" type="button">Verify GST</button><br>
+
         <label>GST status: </label>
         <h3 id="gst-status"></h3>
-        <label for="" class="required">Registered Mobile Number:</label>
-        <!-- <input type="text" id="" name="" placeholder="" value="" required>
-          <label for="">Alt. Mobile Number:</label> -->
-        <input type="text" id="" name="" placeholder="" value=""> <br>
-        <label for="" class="required">Total Amount on Invoice:</label>
-        <input type="text" id="" name="" placeholder="" value="" required> <br>
-        <label for="">Website:</label>
-        <input type="text" id="" name="" placeholder="" value=""> <br>
-        <label for="">Country:</label>
-        <input type="text" id="" name="" placeholder="" value=""> <br>
-        <label for="" class="required">Payment Method:</label>
-        <input type="text" id="" name="" placeholder="" value="" required>
-        <label for="" class="required">Payment Status:</label>
-        <input type="text" id="" name="" placeholder="" value="" required> <br>
+
+        <button id="btn-save" type="submit" form="instance">Save Invoice Details</button>
 
       </form>
     </div>
 
     <div class="section" id="viewbill">
-      <h1>View all Invoices</h1>
+      <h1>View all Invoices</h1><br>
+
+      <label for="">View Invoices:</label>
+      <button id="btn-fetch" type="button">Retrieve</button>
+
+      <!-- Show fetched students records -->
+      <table id="invoice-records-table">
+        <!-- Content updated by renderer on fecth event -->
+        <!-- <thead> -->
+          <tr>
+            <!-- <th>#</th> -->
+            <th>Merchant Name</th>
+            <th>Invoice Date</th>
+            <th>Merchant Pan </th>
+            <th>Merchant Gst</th>
+            <th>Merchant Mobno</th>
+            <th>Total Amount</th>
+            <th>Website</th>
+            <th>Country</th>
+            <th>Payment Method</th>
+            <th>Payment Status</th>
+          </tr>
+        <!-- </thead> -->
+
+        <tbody id="invoice-records-table-body">
+        </tbody>
+
+      </table>
+
     </div>
 
     <div class="section" id="contact">
@@ -153,10 +192,10 @@
     <table id="stu-records-tab-content"> -->
     <!-- Content updated by renderer on fecth event -->
     <!-- <th>
-      <td>Name</td>
-      <td>Age</td>
-      <td>Rollno</td>
-      <td>Branch</td>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Rollno</th>
+      <th>Branch</th>
       </th>
 
     </table>

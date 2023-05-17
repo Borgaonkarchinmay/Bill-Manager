@@ -140,8 +140,40 @@ main {
 }
 
 /* CSS for the View Bills Page */
-table,
-tr {
-    border-style: solid;
-    border-radius: 6px;
+table{
+    position: absolute;
+    /* z-index: 2; */
+    /* left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); */
+    width: 60%;
+    background: #fafafa;
+    text-align: center;
+    border-spacing: 0;
+
+
+    /* border-style: solid; */
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    overflow: hidden;
+
+}
+
+th{
+    background: #8d8de6;
+    text-transform: uppercase;
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
+}
+
+td{
+    font-family: 'Open Sans', sans-serif;
+}
+
+th,td{
+    padding: 12px 15px;
+}
+
+tr:nth-child(odd){
+    background-color: #eeeeee;
 }

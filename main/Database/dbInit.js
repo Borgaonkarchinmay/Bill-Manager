@@ -1,7 +1,7 @@
 const mysql = require('mysql')
 
 const db = mysql.createConnection({
-    user : "root",
+    user : "VOID",
     host : "localhost",
     password : "VOID",
     database : "invoicedb",

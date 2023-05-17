@@ -56,7 +56,7 @@ exports.fetch_all_invoices = () =>{
     console.log('main btn fetch')
 
     return new Promise((resolve, reject) =>{
-        const querry = 'SELECT * FROM invoices'
+        const querry = 'SELECT merchant_name, invoice_date_time, merchant_pan, merchant_gst, merchant_mob_no, total_amount, website, country, payment_method, payment_status FROM invoices'
         
         db.query(querry, (err, res) =>{
             if(err){
