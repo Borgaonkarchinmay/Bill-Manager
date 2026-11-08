@@ -1,0 +1,179 @@
+/* Theme Template */
+
+:root {
+    font-size: 24px;
+    font-family: sans-serif;
+    --text-primary: #b6b6b6;
+    --text_secondary: #ececec;
+    --bg-primary: #4a4a76;
+    --bg-secondary: #95959d;
+    --transition-speed: 600ms;
+}
+
+
+/* CSS for All Pages */
+
+
+body {
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #6649b8;
+}
+
+main {
+    margin-left: 6rem;
+    padding: 1rem;
+}
+
+/* CSS for NavBar */
+
+.navbar {
+    width: 5rem;
+    height: 100vh;
+    position: fixed;
+    background-color: var(--bg-primary);
+    transition: 200ms ease;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    height: 100%;
+
+}
+
+.section{
+    height: 100vh;
+}
+.nav-item {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+#current{
+    
+    background-color: #8d8de6;
+    color: white;
+    /* filter: drop-shadow(0.5rem 0.5rem 1px black); */
+
+}
+
+.nav-item:last-child {
+    margin-top: auto;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    height: 5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    filter: grayscale(100%) opacity(0.7);
+    /* transition: var(--transition-speed); */
+
+}
+
+.nav-link:hover{
+    filter: grayscale(0%) opacity(1);
+    background: var(--bg-secondary);
+    color: white;
+    filter: drop-shadow(0.5rem 0.5rem 1px black);
+}
+
+.fa-primary {
+    color: #ff7eee;
+}
+
+.fa-secondary {
+    color: #df49a6;
+}
+
+.fa-primary,
+.fa-secondary {
+    transition: var(--transition-speed);
+}
+
+.link-text {
+    display: none;
+    margin-left: 1rem;
+}
+
+.nav-link svg {
+    width: 2rem;
+    min-width: 2rem;
+    margin: 0 1.5rem;
+}
+
+.navbar:hover {
+    width: 16rem;
+}
+
+.navbar:hover .link-text {
+    display: block;
+
+}
+
+
+/* CSS for Upload Bills page */
+.required:after{
+    content:" *";
+    color:red;
+}
+
+/* CSS for the View Bills Page */
+table{
+    position: absolute;
+    /* z-index: 2; */
+    /* left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); */
+    width: 60%;
+    background: #fafafa;
+    text-align: center;
+    border-spacing: 0;
+
+
+    /* border-style: solid; */
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    overflow: hidden;
+
+}
+
+th{
+    background: #8d8de6;
+    text-transform: uppercase;
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
+}
+
+td{
+    font-family: 'Open Sans', sans-serif;
+}
+
+th,td{
+    padding: 12px 15px;
+}
+
+tr:nth-child(odd){
+    background-color: #eeeeee;
+}
