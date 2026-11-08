@@ -91,7 +91,7 @@ exports.verify_gst = async (gstNo) =>{
         const options = {
             method : 'GET',
             headers: {
-                'Authorization': 'Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9',
+                'Authorization': 'Bearer <your-api-key>',
                 'client_id': 'JarZChUcsytSBbnkpt'  
             }
         }
